@@ -3,7 +3,6 @@
 #= require_tree ./templates
 #= require_tree ./models
 #= require_tree ./views
-#= require_tree ./custom_view
 #= require_tree ./routers
 
 window.GuomiAdmin =

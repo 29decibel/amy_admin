@@ -1,7 +1,7 @@
 GuomiAdmin.Views ||= {}
 
 class GuomiAdmin.Views.Form extends Backbone.View
-  template: JST['admin/templates/base/form']
+  template: JST['amy_admin/templates/base/form']
   initialize: (options)->
     # ini
     @model = options.model

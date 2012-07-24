@@ -3,7 +3,7 @@ GuomiAdmin.Collections ||= {}
 
 class GuomiAdmin.Models.Base extends Backbone.Model
   url:->
-    "/guo_admin/#{@model_name()}/#{@id || ''}"
+    "/amy_admin/#{@model_name()}/#{@id || ''}"
   model_name:->
     @_model_name || @collection.model_name || ''
   show_fields:->
@@ -17,7 +17,7 @@ class GuomiAdmin.Models.Base extends Backbone.Model
     fields
   custom_action:(name,type)=>
     self = this
-    $.ajax "/guo_admin/#{@model_name()}/#{@id}/#{name}",{type:type,success:(rsp,aa)->
+    $.ajax "/amy_admin/#{@model_name()}/#{@id}/#{name}",{type:type,success:(rsp,aa)->
       alert 'operation success'
     }
   meta_info:->
@@ -50,7 +50,7 @@ class GuomiAdmin.Collections.Base extends Backbone.Collection
   scopes:->
     @ss ||= (GuomiAdmin.meta_info[@model_name]['scopes']||[])
   url:->
-    "/guo_admin/#{@model_name}?#{@query_para()}"
+    "/amy_admin/#{@model_name}?#{@query_para()}"
   query_para:->
     query = {}
     # page info
@@ -62,12 +62,12 @@ class GuomiAdmin.Collections.Base extends Backbone.Collection
     $.param query
   custom_action:(name,type)=>
     self = this
-    $.ajax "/guo_admin/#{@model_name}/#{name}",{type:type,success:(rsp,aa)->
+    $.ajax "/amy_admin/#{@model_name}/#{name}",{type:type,success:(rsp,aa)->
       self.add(new GuomiAdmin.Models.Base(rsp))
     }
   # default will be all
   index_columns:->
     GuomiAdmin.Utils.columns(@model_name,'index')
   page_info:(callback)->
-    $.get "/guo_admin/#{@model_name}/page_stats.json",success:(rsp)->
+    $.get "/amy_admin/#{@model_name}/page_stats.json",success:(rsp)->
       callback(rsp)

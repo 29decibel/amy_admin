@@ -5,7 +5,7 @@ class GuomiAdmin.Views.Index extends Backbone.View
     @collection.on('reset',@render)
     @collection.on('add',@render)
     @style = options.style || 'table'
-    @template = JST["admin/templates/base/index_#{@style}"]
+    @template = JST["amy_admin/templates/base/index_#{@style}"]
     @render()
 
   events:

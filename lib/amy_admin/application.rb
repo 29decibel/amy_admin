@@ -5,29 +5,31 @@ module AmyAdmin
   # one admin application
   # stores all config infos
   class Application
+    include ::AmyAdmin::API
     attr_accessor :meta_infos
+    def initialize
+      @meta_infos = {}
+    end
+
+    def reload_configs!
+      if defined? Rails
+        configs = Dir[File.join(Rails.root,'app/amy_admin/*.rb')]
+        configs.each {|file| load file }
+      end
+    end
 
     def register(model_name,infos={},&block)
       @meta_infos ||= {}
       @meta_infos[model_name] = infos
-      define_controllers
-      meta_infos = @meta_infos
-      Rails.application.routes.draw do
-        AmyAdmin::Application.draw_routes(self,meta_infos)
-      end
     end
 
     def api(info)
       @apis << info
-      define_controllers
-      meta_infos = @meta_infos
-      Rails.application.routes.draw do
-        AmyAdmin::Application.draw_routes(self,meta_infos)
-      end
     end
 
-    def self.draw_routes(route,meta_infos)
-      ms = meta_infos
+    def draw_routes(route)
+      reload_configs!
+      ms = @meta_infos
       #end_points = @apis || []
       route.instance_eval do
         namespace :amy_admin do
@@ -62,6 +64,7 @@ module AmyAdmin
           # end
         end
       end
+      define_controllers
     end
 
     def define_controller(model_name,infos)

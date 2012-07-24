@@ -1,7 +1,7 @@
 GuomiAdmin.Views ||= {}
 
 class GuomiAdmin.Views.WidgetBase extends Backbone.View
-  template: JST['admin/templates/widget_base']
+  template: JST['amy_admin/templates/widget_base']
   className: 'widget'
   tagName: 'section'
   initialize: (options)->

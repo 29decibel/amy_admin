@@ -5,8 +5,8 @@ module AmyAdmin
       model_name.columns.map {|a| {:name=>a.name,:type => a.type }}
     end
 
-    def meta_infos_json(meta_infos)
-      meta_infos.each_with_object({}) do |kv,result|
+    def meta_infos_json
+      @meta_infos.each_with_object({}) do |kv,result|
         result[kv[0]] = kv[1]
         # all columns info
         result[kv[0]][:columns] = columns(kv[0].to_s.classify.constantize)

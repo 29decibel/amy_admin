@@ -38,11 +38,15 @@ describe AmyAdmin::Application do
 
   it "should generate controllers by model_name" do
     application.register 'topics'
+    application.define_controllers
     ::AmyAdmin::TopicsController.should_not == nil
   end
 
   it "should generate routes by model_name" do
     application.register 'topics'
+    Rails.application.routes do
+      application.draw_routes(self)
+    end
     r = Rails.application.routes
     reg = r.recognize_path('/amy_admin/topics')
     reg[:action].should == 'index'

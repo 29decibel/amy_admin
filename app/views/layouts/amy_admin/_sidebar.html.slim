@@ -4,7 +4,7 @@
       | Dashboard
     li.active
       =link_to "Dashboard", "#"
-    -GuoAdmin.meta_infos_json.group_by{|k,v|v[:menu]}.each do |menu,links|
+    -AmyAdmin.application.meta_infos_json.group_by{|k,v|v[:menu]}.each do |menu,links|
       li.nav-header
         =menu
       -links.each do |link_info|
