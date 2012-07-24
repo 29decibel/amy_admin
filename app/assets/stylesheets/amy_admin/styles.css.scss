@@ -1,0 +1,45 @@
+@import "bourbon";
+
+.grid{
+  .item{
+    float:left;
+    margin:20px 20px 0px 0px;
+    @include box-shadow(0 0 10px rgba(0,0,0,0.5));
+    padding:10px;
+    img{
+      width:120px;
+      height:160px;
+    }
+  }
+}
+section{
+  margin-right:20px;
+  margin-bottom:20px;
+  display:inline-block;
+  @include box-shadow(0 0 5px 0px rgba(0, 0, 0, 0.3));
+  @include border-radius(10px);
+  border:1px solid #ccc;
+  min-height:200px;
+  min-width:270px;
+  padding:10px;
+  border:1px solid #ccc;
+  &:hover{
+    @include box-shadow(0 0 10px 0px rgba(0, 0, 0, 0.5));
+  }
+  header{
+    height:30px;
+    padding:5px;
+    font-size:15px;
+    padding-bottom:2px;
+    border-bottom:1px solid #ccc;
+  }
+  article{
+    position:relative;
+    .stat{
+      margin-top:30px;
+      width:100px;
+      height:80px;
+      font-size:80px;
+    }
+  }
+}

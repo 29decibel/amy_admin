@@ -1,0 +1,17 @@
+<div class='page-header'>
+  <h3><%= @collection.model_name%> List</h3>
+</div>
+<ul class='pager'>
+  <li><a class='prev'>Prev</a></li>
+  <% if @collection.length is 50 :%>
+    <li><a class='next'>Next</a></li>
+  <% end %>
+</ul>
+<div class='grid'>
+<% for record in @collection.models :%>
+  <div class='sku item'>
+    <div class='name'><%= record.get('name')%></div>
+    <img class='img' src="<%=record.get('image')%>"></img>
+  </div>
+<% end %>
+</div>

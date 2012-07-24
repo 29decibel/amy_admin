@@ -1,0 +1,22 @@
+#sidebar.well
+  ul.nav.nav-list
+    li.nav-header
+      | Dashboard
+    li.active
+      =link_to "Dashboard", "#"
+    -GuoAdmin.meta_infos_json.group_by{|k,v|v[:menu]}.each do |menu,links|
+      li.nav-header
+        =menu
+      -links.each do |link_info|
+        li
+          =link_to link_info[1][:display_name],"#list/#{link_info[0]}"
+    li.nav-header
+      | 返回
+    li
+      =link_to "主站", root_url
+coffee:
+  $ ->
+    $('#sidebar li a').click ->
+      if !$(this).closest('li').hasClass('active')
+        $('#sidebar li').removeClass('active')
+        $(this).closest('li').addClass('active')

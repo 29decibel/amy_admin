@@ -1,0 +1,19 @@
+<div class='form-actions'>
+  <button class='btn back'>Back</button>
+</div>
+<div class='well'>
+  <div class='page-header'>
+    <h2><%= @model.model_name()%>--<%= @model.id%></h2>
+  </div>
+  <fieldset>
+    <% for v in @model.show_fields():%>
+      <div class='row-fluid'>
+        <div class='span2'><label><%= v%></label></div>
+        <div class='span10'><%- @model.display_value(v)%></div>
+      </div>
+    <% end %>
+  </fieldset>
+</div>
+<div class="relations">
+
+</div>

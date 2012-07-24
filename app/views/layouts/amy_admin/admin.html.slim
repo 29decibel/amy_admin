@@ -1,0 +1,14 @@
+doctype html
+html
+  head
+    title Guomi Admin
+    = stylesheet_link_tag    "admin", :media => "all"
+    = javascript_include_tag "admin"
+    = csrf_meta_tags
+  body
+    .header
+      =render "layouts/guo_admin/header"
+    .container-fluid
+      .sidebar
+        =render "layouts/guo_admin/sidebar"
+      .main= yield

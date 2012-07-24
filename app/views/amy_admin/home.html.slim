@@ -1,0 +1,7 @@
+javascript:
+  __admin_data = #{{GuoAdmin.meta_infos_json.to_json}};
+coffee:
+  $ ->
+    GuomiAdmin.router = new GuomiAdmin.Routers.MainRouter()
+    GuomiAdmin.meta_info = __admin_data
+    Backbone.history.start()

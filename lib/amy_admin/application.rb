@@ -1,5 +1,4 @@
 require_relative 'api'
-require 'active_support/inflector'
 require 'rails/all'
 
 module AmyAdmin
@@ -31,7 +30,7 @@ module AmyAdmin
       ms = meta_infos
       #end_points = @apis || []
       route.instance_eval do
-        namespace :guo_admin do
+        namespace :amy_admin do
           get "dashboard" => "dashboard#home"
           root :to => "dashboard#home"
           # resource relate routes

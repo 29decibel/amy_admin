@@ -1,0 +1,21 @@
+body{
+  padding-top:50px;
+}
+.main{
+  margin-left:220px;
+}
+.actions{
+  padding:20px 20px 20px 0px;
+}
+.sidebar{
+  width:200px;
+  top:50px;
+  left:20px;
+  position:fixed;
+  .actions{
+    a{
+      display:block;
+      margin-top:10px;
+    }
+  }
+}

@@ -1,0 +1,21 @@
+<form class='form-horizontal'>
+  <div class='form-actions'>
+    <button class='btn btn-primary save'>Save</button>
+    <button class='btn back'>Back</button>
+  </div>
+  <fieldset>
+    <% if @model.isNew():%>
+      <legend>Create new</legend>
+    <% else:%>
+      <legend>Edit <%= @model.model_name()%>--<%= @model.get('name') || @model.id%></legend>
+    <% end %>
+    <% for v in @model.form_fields():%>
+      <div class='control-group'>
+        <label class='control-label'><%= v%></label>
+        <div class='controls'>
+          <%- GuomiAdmin.Utils.form_field(@model.model_name(),v,@model.get(v))%>
+        </div>
+      </div>
+    <% end %>
+  </fieldset>
+</form>

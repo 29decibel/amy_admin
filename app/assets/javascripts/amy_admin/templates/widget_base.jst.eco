@@ -1,0 +1,2 @@
+<header><%= @view.header%></header>
+<article class='content'></article>
