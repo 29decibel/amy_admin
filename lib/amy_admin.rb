@@ -1,18 +1,23 @@
 require "amy_admin/version"
 require "amy_admin/application"
 
+
 module AmyAdmin
   class << self
-    attr_accessor :application
     def application
       @application ||= ::Amy::Application.new
     end
 
-    delegate :register, :to => :application
+    def register(name,options={})
+      application.register(name,options)
+    end
+
   end
 
 end
 
-# laod all register infos
-configs = Dir[File.join(Rails.root,'app/admin_it/*.rb')]
-configs.each {|file| load file }
+if defined?(Rails) and !Rails.root.blank?
+  # laod all register infos
+  configs = Dir[File.join(Rails.root,'app/amy_admin/*.rb')]
+  configs.each {|file| load file }
+end

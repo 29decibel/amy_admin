@@ -1,33 +1,35 @@
-require 'api'
+require_relative 'api'
+require 'active_support/inflector'
+require 'rails/all'
 
 module AmyAdmin
   # one admin application
   # stores all config infos
   class Application
+    attr_accessor :meta_infos
 
-    def register model_name,infos={}
+    def register(model_name,infos={},&block)
       @meta_infos ||= {}
       @meta_infos[model_name] = infos
       define_controllers
-      draw_routes
+      meta_infos = @meta_infos
+      Rails.application.routes.draw do
+        AmyAdmin::Application.draw_routes(self,meta_infos)
+      end
     end
 
     def api(info)
       @apis << info
       define_controllers
-      draw_routes
-    end
-
-    def draw_routes
-      Guomi::Application.routes.draw do
-        GuoAdmin.draw_routes(self)
+      meta_infos = @meta_infos
+      Rails.application.routes.draw do
+        AmyAdmin::Application.draw_routes(self,meta_infos)
       end
     end
 
-
-    def draw_routes(route)
-      ms = @meta_infos
-      end_points = @apis
+    def self.draw_routes(route,meta_infos)
+      ms = meta_infos
+      #end_points = @apis || []
       route.instance_eval do
         namespace :guo_admin do
           get "dashboard" => "dashboard#home"
@@ -53,12 +55,12 @@ module AmyAdmin
             end
           end
           # custom apis
-          end_points.each do |api|
-            send(api[:method],api[:name] => "dashboard##{api[:name]}")
-            ::Amy::DashboardController.instance_eval do
-              define_method api[:name],api[:action]
-            end
-          end
+          # end_points.each do |api|
+          #   send(api[:method],api[:name] => "dashboard##{api[:name]}")
+          #   ::Amy::DashboardController.instance_eval do
+          #     define_method api[:name],api[:action]
+          #   end
+          # end
         end
       end
     end
@@ -67,7 +69,7 @@ module AmyAdmin
       model_name = model_name.to_s
       model = model_name.classify.constantize
       controller_class = "::AmyAdmin::#{model_name.classify.pluralize}Controller"
-      eval("class #{controller_class} < InheritedResources::Base;end")
+      eval("class #{controller_class} < ::InheritedResources::Base;end")
       controller_class.constantize.instance_eval do
         defaults :resource_class => model
         before_filter :authenticate_admin_user!
@@ -96,8 +98,8 @@ module AmyAdmin
       end
     end
 
-    def define_controllers(meta_infos)
-      meta_infos.each do |model_name,infos|
+    def define_controllers
+      @meta_infos.each do |model_name,infos|
         define_controller(model_name,infos)
       end
     end
